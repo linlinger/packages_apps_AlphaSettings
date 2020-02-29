@@ -69,6 +69,12 @@
         android:title="@string/navbar_actions_category_title"
         android:dependency="navbar_visibility">
 
+        <Preference
+            android:key="gesture_nav_custom_options"
+            android:title="@string/navbar_gesture_tweaks_pref_title"
+            android:summary="@string/navbar_gesture_tweaks_pref_summary"
+            android:fragment="com.alpha.settings.fragments.navigation.GestureTweaksSettings" />
+
          <ListPreference
             android:key="navigation_back_long_press"
             android:icon="@drawable/ic_single_tap"
