@@ -19,6 +19,13 @@
     android:key="alpha_settings_preference_screen"
     android:title="@string/alpha_settings_title">
 
+
+        <!-- Alpha settings logo
+        <Preference
+            android:key="alpha_settings_logo"
+            android:selectable="false"
+            settings:layout="@layout/alpha_settings_logo" /-->
+
         <Preference
             android:key="ui_settings_category"
             android:title="@string/ui_title"
@@ -88,3 +95,4 @@
             android:fragment="com.alpha.settings.fragments.About"
             android:icon="@drawable/ic_settings_about"/>
 </PreferenceScreen>
+
