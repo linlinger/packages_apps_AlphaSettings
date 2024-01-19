@@ -21,35 +21,39 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.UserHandle;
 import android.provider.Settings;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toolbar;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceScreen;
 
-import com.android.internal.logging.nano.MetricsProto;
-import com.android.settings.R;
-
 import com.alpha.settings.fragments.Buttons;
 import com.alpha.settings.fragments.LockScreen;
-import com.alpha.settings.fragments.QuickSettings;
 import com.alpha.settings.fragments.Miscellaneous;
 import com.alpha.settings.fragments.Navigation;
 import com.alpha.settings.fragments.Notifications;
+import com.alpha.settings.fragments.QuickSettings;
 import com.alpha.settings.fragments.Sound;
 import com.alpha.settings.fragments.StatusBar;
 import com.alpha.settings.fragments.UserInterface;
+
+import com.android.internal.logging.nano.MetricsProto
+;
 import com.android.settings.dashboard.DashboardFragment;
-import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settingslib.search.SearchIndexable;
+import com.android.settings.R;
+import com.android.settings.search.BaseSearchIndexProvider;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -58,15 +62,14 @@ public class AlphaSettings extends DashboardFragment {
 
     private static final String TAG = "AlphaSettings";
 
-    protected Context mContext;
     protected CollapsingToolbarLayout mCollapsingToolbarLayout;
     private static final int MENU_RESET = Menu.FIRST;
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        mContext = getActivity().getApplicationContext();
         //hideToolbar();
+        showHeader();
         setAlphaDashboardStyle();
     }
 
@@ -79,9 +82,20 @@ public class AlphaSettings extends DashboardFragment {
         }
     }
 
+    private void showHeader() {
+       ImageView mView = getActivity().findViewById(R.id.appbar_image);
+       if (mView != null) {
+           mView.setImageResource(R.drawable.alpha_settings_logo);
+           mView.setColorFilter(null);
+           mView.setVisibility(View.VISIBLE);
+           mView.requestLayout();
+       }
+    }
+
     public void onResume() {
         super.onResume();
         //hideToolbar();
+        showHeader();
         setAlphaDashboardStyle();
     }
 
@@ -95,11 +109,6 @@ public class AlphaSettings extends DashboardFragment {
             String mKey = mPreference.getKey();
 
             if (mKey == null) continue;
-
-            if (mKey.equals("alpha_settings_logo")) {
-                mPreference.setLayoutResource(R.layout.alpha_settings_logo);
-                continue;
-            }
 
             if (mDashBoardStyle > 0) { // 0 = stock aosp style
                 if (mDashBoardStyle == 1 && mKey.equals("ui_settings_category")) {
